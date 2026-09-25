@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Valorise Maroc — Palettes bois neuves et recyclées NIMP 15 | Tanger Zone Franche</title>
+<meta name="description" content="Fabricant de palettes bois neuves (pin rouge importé) et recyclées à Tanger Zone Franche. Traitement thermique NIMP 15, producteur MA-3483. Livraison TFZ, TAC, Kénitra AFZ.">
+<meta property="og:title" content="Valorise Maroc — Palettes bois industrielles NIMP 15">
+<meta property="og:description" content="Palettes neuves et recyclées, traitées NIMP 15 (MA-3483), livrées par notre propre flotte depuis Tanger Zone Franche.">
+<meta property="og:image" content="assets/usine-tfz.jpg">
+<meta name="theme-color" content="#123524">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Valorise Maroc — accueil"><img src="assets/logo-valorise-light.png" alt="Valorise Maroc" width="113" height="40"></a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="nav" data-i18n="menu">Menu</button>
+    <nav class="nav" id="nav">
+      <a href="#gamme" data-i18n="nav.range">Gamme</a>
+      <a href="#processus" data-i18n="nav.process">Fabrication</a>
+      <a href="#nimp15" data-i18n="nav.nimp">NIMP 15</a>
+      <a href="#unite" data-i18n="nav.unit">L'unité</a>
+      <a href="#livraison" data-i18n="nav.delivery">Livraison</a>
+    </nav>
+    <div class="lang" role="group" aria-label="Langue / Language">
+      <button type="button" data-lang="fr" aria-pressed="true">FR</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+    <a class="btn btn-primary" href="#devis" data-i18n="cta.quote">Demander un devis</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO + CONFIGURATEUR 3D -->
+<section class="hero" id="configurateur" style="padding:0">
+  <div class="wrap">
+    <div class="hero-text">
+      <h1 data-i18n="hero.title">Palettes bois industrielles, fabriquées et traitées à Tanger.</h1>
+      <p class="lead" data-i18n="hero.lead">Neuves en pin rouge importé de premier choix, ou reconditionnées à partir de vos palettes usagées. Traitées thermiquement NIMP 15, marquées MA‑3483 et livrées par notre propre flotte.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#devis" data-i18n="cta.quote">Demander un devis</a>
+        <a class="btn btn-ghost" href="#gamme" data-i18n="hero.range">Voir la gamme</a>
+      </div>
+      <div class="facts">
+        <div><b data-i18n="f1.b">Depuis 2014</b><span data-i18n="f1.s">en Tanger Zone Franche</span></div>
+        <div><b>MA-3483</b><span data-i18n="f2.s">producteur certifié NIMP 15 / ISPM 15</span></div>
+        <div><b>7 000 m²</b><span data-i18n="f3.s">d'atelier dédié à la palette</span></div>
+        <div><b data-i18n="f4.b">7 formats</b><span data-i18n="f4.s">standards, plus le sur-mesure</span></div>
+      </div>
+    </div>
+
+    <div class="stage-card">
+      <div class="stage" id="stage" role="img" aria-label="Palette en 3D — faites glisser pour la tourner">
+        <div class="stage-fallback"><img src="assets/palette-b.jpg" alt="Palette bois Valorise Maroc"></div>
+
+        <span class="stage-hint" data-i18n="stage.hint">Faites glisser pour tourner la palette</span>
+      </div>
+        <div class="label-card" aria-live="polite">
+          <strong id="lbl-format">120 × 100</strong>
+          <dl>
+            <dt data-i18n="lbl.deck">Plancher</dt><dd id="lbl-deck">Fermé</dd>
+            <dt data-i18n="lbl.kind">Bois</dt><dd id="lbl-kind">Neuf</dd>
+            <dt data-i18n="lbl.boards">Planches dessus</dt><dd id="lbl-boards">9</dd>
+            <dt data-i18n="lbl.area">Surface</dt><dd id="lbl-area">1,20 m²</dd>
+            <dt data-i18n="lbl.mark">Marquage</dt><dd>MA-3483 HT</dd>
+          </dl>
+        </div>
+      <div class="controls">
+        <div class="ctrl-row">
+          <span data-i18n="ctrl.format">Format</span>
+          <div class="chips" id="chips-format">
+            <button type="button" class="chip" data-fmt="120x100" aria-pressed="true">120×100</button>
+            <button type="button" class="chip" data-fmt="120x80" aria-pressed="false">120×80</button>
+            <button type="button" class="chip" data-fmt="120x120" aria-pressed="false">120×120</button>
+            <button type="button" class="chip" data-fmt="100x100" aria-pressed="false">100×100</button>
+            <button type="button" class="chip" data-fmt="80x60" aria-pressed="false">80×60</button>
+            <button type="button" class="chip" data-fmt="custom" aria-pressed="false" data-i18n="ctrl.custom">Sur mesure</button>
+          </div>
+        </div>
+        <div class="custom-dims" id="custom-dims">
+          <label><span data-i18n="ctrl.len">Longueur</span> <output id="out-l">130 cm</output><input type="range" id="in-l" min="60" max="160" step="5" value="130"></label>
+          <label><span data-i18n="ctrl.wid">Largeur</span> <output id="out-w">110 cm</output><input type="range" id="in-w" min="40" max="140" step="5" value="110"></label>
+        </div>
+        <div class="ctrl-row">
+          <span data-i18n="ctrl.deck">Plancher</span>
+          <div class="chips" id="chips-deck">
+            <button type="button" class="chip" data-deck="closed" aria-pressed="true" data-i18n="deck.closed">Fermé</button>
+            <button type="button" class="chip" data-deck="open" aria-pressed="false" data-i18n="deck.open">Ouvert</button>
+          </div>
+        </div>
+        <div class="ctrl-row">
+          <span data-i18n="ctrl.kind">Bois</span>
+          <div class="chips" id="chips-kind">
+            <button type="button" class="chip" data-kind="new" aria-pressed="true" data-i18n="kind.new">Neuf</button>
+            <button type="button" class="chip" data-kind="recycled" aria-pressed="false" data-i18n="kind.rec">Recyclé</button>
+          </div>
+        </div>
+        <a class="btn btn-primary" href="#devis" id="quote-this" data-i18n="cta.this">Demander un devis pour cette palette</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEUX LIGNES -->
+<section id="lignes">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 data-i18n="lines.title">Deux lignes de production, un même niveau d'exigence.</h2>
+      <p class="lead" data-i18n="lines.lead">Le choix du bois fait la palette. Nous appliquons les mêmes critères de sélection à nos palettes neuves et à nos palettes reconditionnées.</p>
+    </div>
+    <div class="lines">
+      <article class="line">
+        <img src="assets/bois-pin-rouge.jpg" alt="Stock de bois de pin rouge importé sur le site de Tanger" loading="lazy">
+        <div class="body">
+          <span class="tag new" data-i18n="kind.new">Neuf</span>
+          <h3 data-i18n="new.title">Palettes neuves en pin rouge importé</h3>
+          <p data-i18n="new.p">Fabriquées exclusivement en pin rouge importé de premier choix, sélectionné pour sa densité et son rapport résistance/poids. La même qualité à chaque commande, quel que soit le volume.</p>
+        </div>
+      </article>
+      <article class="line">
+        <img src="assets/palette-d.jpg" alt="Palette bois reconditionnée" loading="lazy">
+        <div class="body">
+          <span class="tag rec" data-i18n="kind.rec">Recyclé</span>
+          <h3 data-i18n="rec.title">Palettes recyclées et reconditionnées</h3>
+          <p data-i18n="rec.p">Nous récupérons vos palettes en fin de vie directement sur vos sites, trions le bois réutilisable et le reconditionnons en palettes structurellement conformes. Vous réduisez vos coûts d'achat et vos déchets en même temps.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- GAMME -->
+<section class="range" id="gamme">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 data-i18n="range.title">Gamme standard</h2>
+      <p class="lead" data-i18n="range.lead">Chaque format existe en neuf et en recyclé, toujours traité NIMP 15. Sélectionnez un format pour l'afficher en 3D.</p>
+    </div>
+    <div class="range-grid">
+      <div class="formats" id="formats">
+        <button type="button" class="fmt" data-fmt="120x100" data-deck="closed"><b>120 × 100</b><span data-i18n="deck.closedF">Plancher fermé</span><em data-i18n="range.see">Voir en 3D</em></button>
+        <button type="button" class="fmt" data-fmt="120x100" data-deck="open"><b>120 × 100</b><span data-i18n="deck.openF">Plancher ouvert</span><em data-i18n="range.see">Voir en 3D</em></button>
+        <button type="button" class="fmt" data-fmt="120x80" data-deck="closed"><b>120 × 80</b><span data-i18n="deck.closedF">Plancher fermé</span><em data-i18n="range.see">Voir en 3D</em></button>
+        <button type="button" class="fmt" data-fmt="120x80" data-deck="open"><b>120 × 80</b><span data-i18n="deck.openF">Plancher ouvert</span><em data-i18n="range.see">Voir en 3D</em></button>
+        <button type="button" class="fmt" data-fmt="120x120" data-deck="open"><b>120 × 120</b><span data-i18n="range.std">Standard</span><em data-i18n="range.see">Voir en 3D</em></button>
+        <button type="button" class="fmt" data-fmt="100x100" data-deck="open"><b>100 × 100</b><span data-i18n="range.std">Standard</span><em data-i18n="range.see">Voir en 3D</em></button>
+        <button type="button" class="fmt" data-fmt="80x60" data-deck="open"><b>80 × 60</b><span data-i18n="range.std">Standard</span><em data-i18n="range.see">Voir en 3D</em></button>
+        <button type="button" class="fmt custom" data-fmt="custom" data-deck="closed"><b data-i18n="ctrl.custom">Sur mesure</b><span data-i18n="range.customS">Étude technique gratuite</span><em data-i18n="range.config">Configurer</em></button>
+      </div>
+      <div>
+        <div class="gallery">
+          <figure class="g1"><img src="assets/palette-a.jpg" alt="Palette bois neuve, plancher ouvert" loading="lazy"></figure>
+          <figure class="g2"><img src="assets/palette-c.jpg" alt="Palette bois vue de dessus" loading="lazy"></figure>
+          <figure class="g3"><img src="assets/palette-b.jpg" alt="Palette bois neuve, plancher fermé" loading="lazy"></figure>
+          <figure class="g4"><img src="assets/palette-d.jpg" alt="Plancher de palette à planches serrées" loading="lazy"></figure>
+          <figure class="g5"><img src="assets/palette-e.jpg" alt="Palette bois grand format vue de dessus" loading="lazy"></figure>
+        </div>
+        <p class="gallery-note" data-i18n="range.note">Palettes sorties de notre atelier de Tanger Zone Franche.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESSUS -->
+<section id="processus">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 data-i18n="proc.title">De la planche à votre quai de réception.</h2>
+      <p class="lead" data-i18n="proc.lead">Chaque palette suit le même parcours, avec un contrôle à chaque poste.</p>
+    </div>
+    <ol class="steps">
+      <li><h3 data-i18n="s1.t">Réception du bois</h3><p data-i18n="s1.p">Contrôle du pin rouge importé à l'arrivée.</p></li>
+      <li><h3 data-i18n="s2.t">Découpe</h3><p data-i18n="s2.p">Planches, traverses et dés aux cotes du format.</p></li>
+      <li><h3 data-i18n="s3.t">Assemblage</h3><p data-i18n="s3.p">Clouage selon le plan de la palette.</p></li>
+      <li><h3 data-i18n="s4.t">Contrôle qualité</h3><p data-i18n="s4.p">Dimensions et solidité, conforme ou rejetée.</p></li>
+      <li class="hot"><h3 data-i18n="s5.t">Traitement thermique</h3><p data-i18n="s5.p">56 °C à cœur, 30 minutes minimum.</p></li>
+      <li class="hot"><h3 data-i18n="s6.t">Marquage NIMP 15</h3><p data-i18n="s6.p">Tampon MA-3483 HT brûlé dans le bois.</p></li>
+      <li><h3 data-i18n="s7.t">Livraison</h3><p data-i18n="s7.p">Par notre flotte, jusqu'à votre site.</p></li>
+    </ol>
+    <p class="recycled-flow" data-i18n="proc.rec"><b>Ligne recyclée :</b> collecte des palettes usagées chez le client, tri du bois récupérable, reconditionnement, puis le même traitement thermique et le même marquage que les palettes neuves.</p>
+  </div>
+</section>
+
+<!-- TRAITEMENT THERMIQUE -->
+<section class="heat" id="traitement">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 data-i18n="heat.title">56 °C à cœur, pendant 30 minutes. Sans exception.</h2>
+      <p class="lead" data-i18n="heat.lead">Toutes nos palettes passent dans notre four industriel. C'est l'exigence de la norme NIMP 15 / ISPM 15 pour éliminer insectes, larves et organismes nuisibles de tout emballage bois destiné au commerce international.</p>
+    </div>
+    <div class="heat-grid">
+      <div class="chart-card">
+        <div class="chart-status">
+          <span class="temp" id="heat-temp">20 °C</span>
+          <span class="state" id="heat-state">—</span>
+        </div>
+        <svg viewBox="0 0 600 300" id="heat-chart" aria-label="Courbe de température à cœur du bois pendant un cycle">
+          <g id="heat-grid-lines"></g>
+          <rect id="heat-zone" x="0" y="20" width="0" height="250" fill="rgba(179,71,29,.22)"/>
+          <line id="heat-56" x1="50" x2="590" stroke="#E4C792" stroke-dasharray="6 6" stroke-width="1.5"/>
+          <text id="heat-56-lbl" x="592" text-anchor="end" fill="#E4C792" font-size="13">56 °C</text>
+          <path id="heat-path" fill="none" stroke="#E4C792" stroke-width="3"/>
+          <path id="heat-path-done" fill="none" stroke="#FF9A5C" stroke-width="4"/>
+          <circle id="heat-dot" r="7" fill="#FF9A5C" stroke="#0E2A1C" stroke-width="3"/>
+        </svg>
+        <div class="scrub">
+          <label for="heat-range" data-i18n="heat.scrub">Avancer dans le cycle</label>
+          <input type="range" id="heat-range" min="0" max="90" step="1" value="0">
+        </div>
+        <p class="chart-note" data-i18n="heat.note">Courbe indicative de la température à cœur du bois. La zone orangée correspond au palier exigé par la norme.</p>
+      </div>
+      <div class="oven">
+        <img src="assets/four-traitement.jpg" alt="Palettes chargées dans le four de traitement thermique" loading="lazy">
+        <p data-i18n="heat.oven">Notre four de traitement thermique, sur le site de Tanger Zone Franche.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUAGE -->
+<section id="nimp15">
+  <div class="wrap">
+    <div class="stamp-grid">
+      <div class="stamp-wrap">
+        <svg viewBox="0 0 420 280" id="stamp" aria-label="Marquage NIMP 15 de Valorise Maroc">
+          <defs>
+            <filter id="burn" x="-5%" y="-5%" width="110%" height="110%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4" result="n"/>
+              <feDisplacementMap in="SourceGraphic" in2="n" scale="3.2"/>
+            </filter>
+          </defs>
+          <g filter="url(#burn)" fill="none" stroke="#2B1C10" stroke-width="9" stroke-linejoin="round">
+            <rect x="14" y="14" width="392" height="252" rx="6"/>
+            <line x1="130" y1="14" x2="130" y2="266"/>
+          </g>
+          <g filter="url(#burn)" fill="#2B1C10" font-family="Archivo, sans-serif" font-weight="900">
+            <!-- symbole IPPC stylisé -->
+            <g stroke="#2B1C10" stroke-width="6" stroke-linecap="round" fill="none">
+              <line x1="52" y1="44" x2="52" y2="240"/>
+              <path d="M52 80 L30 62 M52 112 L30 94 M52 144 L30 126 M52 176 L30 158 M52 80 L74 62 M52 112 L74 94 M52 144 L74 126 M52 176 L74 158"/>
+              <path d="M36 240 L68 240"/>
+            </g>
+            <g font-size="26" text-anchor="middle" style="font-stretch:100%">
+              <text x="104" y="70">I</text><text x="104" y="124">P</text><text x="104" y="178">P</text><text x="104" y="232">C</text>
+            </g>
+            <g style="font-stretch:112%">
+              <text x="160" y="92" font-size="66">MA-</text>
+              <text x="160" y="170" font-size="72">3483</text>
+              <text x="160" y="248" font-size="72">HT</text>
+            </g>
+          </g>
+          <g class="stamp-part" data-part="ippc" tabindex="0" role="button" aria-label="IPPC"><rect class="hit" x="18" y="18" width="108" height="244" rx="4"/></g>
+          <g class="stamp-part" data-part="ma" tabindex="0" role="button" aria-label="MA"><rect class="hit" x="136" y="22" width="266" height="80" rx="4"/></g>
+          <g class="stamp-part" data-part="num" tabindex="0" role="button" aria-label="3483"><rect class="hit" x="136" y="104" width="266" height="78" rx="4"/></g>
+          <g class="stamp-part" data-part="ht" tabindex="0" role="button" aria-label="HT"><rect class="hit" x="136" y="184" width="266" height="78" rx="4"/></g>
+        </svg>
+      </div>
+      <div>
+        <h2 data-i18n="stamp.title">Lire le marquage de nos palettes.</h2>
+        <p class="lead" style="margin-top:16px" data-i18n="stamp.lead">Ce tampon, brûlé dans le bois après traitement, prouve la conformité de la palette à l'import dans l'Union européenne, aux États-Unis et dans tous les pays membres de l'IPPC. Touchez une partie du tampon.</p>
+        <div class="decode" id="decode">
+          <button type="button" data-part="ippc"><b>IPPC</b><span data-i18n="d.ippc">Symbole de la Convention internationale pour la protection des végétaux : la palette respecte la norme NIMP 15.</span></button>
+          <button type="button" data-part="ma"><b>MA</b><span data-i18n="d.ma">Code pays du Maroc, où la palette a été traitée.</span></button>
+          <button type="button" data-part="num"><b>3483</b><span data-i18n="d.num">Numéro de producteur attribué à Valorise Maroc. Chaque palette est traçable jusqu'à notre site.</span></button>
+          <button type="button" data-part="ht"><b>HT</b><span data-i18n="d.ht">Heat Treatment : traitement par la chaleur, sans produit chimique.</span></button>
+        </div>
+        <div class="stamp-photo">
+          <img src="assets/marquage-nimp15.jpg" alt="Photo du marquage NIMP 15 brûlé sur une palette" loading="lazy">
+          <span data-i18n="stamp.photo">Le marquage réel, tel qu'il apparaît sur nos palettes.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UNITÉ & GROUPE -->
+<section class="unit" id="unite">
+  <div class="wrap">
+    <div class="unit-grid">
+      <div class="unit-photo">
+        <img src="assets/usine-tfz.jpg" alt="Façade du site Valorise Maroc en Tanger Zone Franche" loading="lazy">
+        <div class="area"><b>7 000 m²</b><span data-i18n="unit.area">Unité palettes, Tanger Zone Franche</span></div>
+      </div>
+      <div>
+        <h2 data-i18n="unit.title">Une unité entièrement dédiée à la palette.</h2>
+        <p class="lead" style="margin-top:16px" data-i18n="unit.lead">Notre unité Valorise 02 regroupe la fabrication, le reconditionnement et le traitement thermique sur un même site.</p>
+        <ul>
+          <li data-i18n="unit.l1">Capacité de production en cours d'extension pour les contrats récurrents à fort volume et l'export.</li>
+          <li data-i18n="unit.l2">Automatisation de la ligne de fabrication prévue en 2027.</li>
+          <li data-i18n="unit.l3">Conception sur cahier des charges client, étude technique offerte.</li>
+          <li data-i18n="unit.l4">Équipements industriels modernes, standards de qualité alignés sur notre groupe suisse.</li>
+        </ul>
+        <p class="note" data-i18n="unit.note">Les chiffres de capacité, plannings et engagements de volume sont communiqués dans le cadre d'un devis ou d'un accord de confidentialité.</p>
+      </div>
+    </div>
+    <div class="group">
+      <img src="assets/logo-fueltec.png" alt="Fueltec Search Group">
+      <div>
+        <h3 style="margin-bottom:8px" data-i18n="grp.title">Membre du groupe Fueltec Search</h3>
+        <p data-i18n="grp.p">Groupe international à direction suisse. Pour nos clients : une gouvernance renforcée, une continuité d'approvisionnement sur les contrats long terme et l'accès à un réseau commercial en Europe et au-delà.</p>
+        <div class="countries"><span data-i18n="c.ch">Suisse (siège)</span><span data-i18n="c.it">Italie</span><span data-i18n="c.us">États-Unis</span><span data-i18n="c.ma">Maroc</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVRAISON -->
+<section id="livraison">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 data-i18n="del.title">Livré par notre propre flotte.</h2>
+      <p class="lead" data-i18n="del.lead">Nos camions partent de Tanger vers les grandes zones industrielles du Maroc, avec une logistique dimensionnée pour les volumes récurrents.</p>
+    </div>
+    <div class="route">
+      <div class="stop base"><h3>Tanger Free Zone</h3><p data-i18n="del.tfz">Notre base de production.</p></div>
+      <div class="stop"><h3>Tanger Automotive City</h3><p data-i18n="del.tac">Le premier pôle automobile du pays.</p></div>
+      <div class="stop"><h3>Kénitra Atlantic Free Zone</h3><p data-i18n="del.afz">Zone franche atlantique.</p></div>
+      <div class="stop any"><h3 data-i18n="del.all">Toutes zones industrielles</h3><p data-i18n="del.allp">Partout au Maroc, sur demande.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- DEVIS -->
+<section class="contact" id="devis">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 data-i18n="q.title">Demander un devis</h2>
+      <p class="lead" data-i18n="q.lead">Décrivez votre besoin, nous revenons vers vous avec une offre. Le formulaire prépare votre message : envoyez-le par WhatsApp ou par e-mail.</p>
+    </div>
+    <div class="contact-grid">
+      <form id="quote-form" novalidate>
+        <div class="field"><label for="f-company" data-i18n="q.company">Société</label><input id="f-company" name="company" autocomplete="organization"></div>
+        <div class="field"><label for="f-name" data-i18n="q.name">Nom et fonction</label><input id="f-name" name="name" autocomplete="name"></div>
+        <div class="field"><label for="f-phone" data-i18n="q.phone">Téléphone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel"></div>
+        <div class="field"><label for="f-email" data-i18n="q.email">E-mail</label><input id="f-email" name="email" type="email" autocomplete="email"></div>
+        <div class="field full"><label for="f-pallet" data-i18n="q.pallet">Palette souhaitée</label><input id="f-pallet" name="pallet"></div>
+        <div class="field"><label for="f-qty" data-i18n="q.qty">Quantité par mois</label><input id="f-qty" name="qty" inputmode="numeric"></div>
+        <div class="field"><label for="f-zone" data-i18n="q.zone">Zone de livraison</label>
+          <select id="f-zone" name="zone">
+            <option>Tanger Free Zone</option>
+            <option>Tanger Automotive City</option>
+            <option>Kénitra Atlantic Free Zone</option>
+            <option data-i18n="q.other">Autre zone</option>
+          </select>
+        </div>
+        <div class="field full"><label for="f-msg" data-i18n="q.msg">Précisions (charge, usage, export…)</label><textarea id="f-msg" name="msg"></textarea></div>
+        <p class="form-msg" id="form-msg" role="alert"></p>
+        <div class="form-actions">
+          <button type="button" class="btn btn-dark" id="send-wa" data-i18n="q.wa">Envoyer sur WhatsApp</button>
+          <button type="button" class="btn btn-line" id="send-mail" data-i18n="q.mail">Envoyer par e-mail</button>
+        </div>
+      </form>
+      <div class="coords">
+        <div><h3 data-i18n="k.phone">Téléphone</h3><p><a href="tel:+212666285239">+212 6 66 28 52 39</a></p><p><a href="tel:+212663452705">+212 6 63 45 27 05</a></p></div>
+        <div><h3 data-i18n="k.mail">E-mail</h3><p><a href="mailto:info@valorise.ma">info@valorise.ma</a></p><p><a href="mailto:bhar.ayman@valorise.ma">bhar.ayman@valorise.ma</a></p></div>
+        <div><h3 data-i18n="k.addr">Adresse</h3><p>Îlot 118, Lot N°1<br>Tanger Zone Franche, Maroc</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>© <span id="year">2026</span> Valorise Maroc SARL · <span data-i18n="ft.grp">Une société du groupe Fueltec Search</span></p>
+    <p>RC 64711 · IF 15165339 · ICE 001531737000021 · NIMP 15 MA-3483 HT</p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="js/pallet3d.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
