@@ -1,0 +1,10 @@
+{
+  "name": "valorise-palettes-site",
+  "private": true,
+  "version": "1.2.0",
+  "description": "Site Valorise Maroc — palettes bois NIMP 15, avec envoi des demandes de devis par e-mail",
+  "dependencies": {
+    "nodemailer": "^6.9.14"
+  },
+  "engines": { "node": ">=18" }
+}

@@ -386,6 +386,16 @@ section{scroll-margin-top:68px}
   .q-steps{justify-content:space-between}
 }
 
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.qd-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+.linkbtn{background:none;border:0;font:inherit;color:var(--muted);text-decoration:underline;cursor:pointer;font-size:.9rem}
+.q-check.warn{background:#C98A2B}
+.btn.ghosty{background:transparent;color:#178C46;border-color:#1FA855}
+.btn.ghosty:hover{background:#1FA855;color:#fff}
+.btn.loading{pointer-events:none;opacity:.8}
+.btn.loading::after{content:"";width:14px;height:14px;border:2px solid rgba(255,255,255,.5);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
 </style>
 </head>
 <body>
@@ -817,14 +827,21 @@ section{scroll-margin-top:68px}
               <div class="field full"><label for="f-msg" data-i18n="q.msg">Précisions (charge, usage, export…)</label><textarea id="f-msg" name="msg"></textarea></div>
             </div>
             <p class="q-hint" data-i18n="q3.hint">* Société obligatoire, et un téléphone ou un e-mail.</p>
+            <p class="q-hint" data-i18n="q3.pdf">À l'envoi, vous recevez un récapitulatif PDF de votre demande avec le rendu 3D de votre palette.</p>
+            <div class="hp" aria-hidden="true"><label>Website <input id="f-website" name="website" tabindex="-1" autocomplete="off"></label></div>
           </fieldset>
 
           <!-- Envoyé -->
           <div class="q-done" id="q-done" hidden tabindex="-1">
-            <div class="q-check" aria-hidden="true">✓</div>
-            <h3 data-i18n="qd.t">Votre demande est prête.</h3>
-            <p data-i18n="qd.p">Envoyez le message qui vient de s'ouvrir. Notre équipe vous répond avec une offre adaptée. Vous pouvez aussi nous appeler directement.</p>
-            <button type="button" class="btn btn-line" id="q-restart" data-i18n="qd.new">Nouvelle demande</button>
+            <div class="q-check" id="qd-icon" aria-hidden="true">✓</div>
+            <h3 id="qd-title"></h3>
+            <p id="qd-text"></p>
+            <div class="qd-actions">
+              <button type="button" class="btn btn-dark" id="qd-pdf" data-i18n="qd.pdf">Télécharger le récapitulatif PDF</button>
+              <button type="button" class="btn btn-wa" id="qd-wa" hidden data-i18n="q.wa">Envoyer sur WhatsApp</button>
+              <button type="button" class="btn btn-line" id="qd-mail" hidden data-i18n="q.mail">Envoyer par e-mail</button>
+            </div>
+            <button type="button" class="linkbtn" id="q-restart" data-i18n="qd.new">Nouvelle demande</button>
           </div>
 
           <p class="form-msg" id="form-msg" role="alert"></p>
@@ -832,8 +849,8 @@ section{scroll-margin-top:68px}
             <button type="button" class="btn btn-line" id="q-prev" data-i18n="q.prev">Retour</button>
             <button type="button" class="btn btn-dark" id="q-next" data-i18n="q.next">Continuer</button>
             <div class="q-send" id="q-send" hidden>
-              <button type="button" class="btn btn-wa" id="send-wa"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3Z"/></svg><span data-i18n="q.wa">Envoyer sur WhatsApp</span></button>
-              <button type="button" class="btn btn-line" id="send-mail" data-i18n="q.mail">Envoyer par e-mail</button>
+              <button type="button" class="btn btn-wa ghosty" id="send-wa" aria-label="WhatsApp"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3Z"/></svg><span>WhatsApp</span></button>
+              <button type="button" class="btn btn-primary" id="send-now"><span data-i18n="q.send">Envoyer ma demande</span></button>
             </div>
           </div>
         </form>
@@ -876,6 +893,7 @@ section{scroll-margin-top:68px}
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 /* Palette 3D — Three.js r128. Unités : 1 = 1 cm, mise à l'échelle dans la scène. */
 (function () {
@@ -1035,13 +1053,17 @@ section{scroll-margin-top:68px}
   };
 
   /* Image de la palette assemblée (pour le devis) */
-  Pallet3D.prototype.snapshot = function (w) {
+  Pallet3D.prototype.snapshot = function (w, bg, aspect) {
     this.parts.forEach(p => { p.start = 0; p.mesh.visible = true; p.mesh.position.y = p.y; });
     this.renderer.render(this.scene, this.camera);
     const src = this.renderer.domElement, c = document.createElement('canvas');
-    c.width = w || 360; c.height = Math.round(c.width * src.height / src.width);
-    const g = c.getContext('2d'); g.fillStyle = '#ffffff'; g.fillRect(0, 0, c.width, c.height);
-    g.drawImage(src, 0, 0, c.width, c.height);
+    c.width = w || 360; c.height = Math.round(aspect ? c.width / aspect : c.width * src.height / src.width);
+    const g = c.getContext('2d');
+    if (bg && bg.length === 2) { const gr = g.createLinearGradient(0, 0, 0, c.height); gr.addColorStop(0, bg[0]); gr.addColorStop(1, bg[1]); g.fillStyle = gr; }
+    else g.fillStyle = bg || '#ffffff';
+    g.fillRect(0, 0, c.width, c.height);
+    const dh = c.height * 1.22, dw = dh * src.width / src.height; // pallet un peu plus grande, centrée
+    g.drawImage(src, (c.width - dw) / 2, (c.height - dh) / 2 + c.height * 0.02, dw, dh);
     return c.toDataURL('image/jpeg', 0.82);
   };
 
@@ -1111,12 +1133,267 @@ section{scroll-margin-top:68px}
 
 </script>
 <script>
+/* Récapitulatif de demande de devis — PDF A4 (jsPDF) */
+(function () {
+  const C = {
+    forest: [18, 53, 36], forest2: [27, 70, 49], forest3: [21, 59, 40], leaf: [47, 154, 85], pine: [228, 199, 146], pineDeep: [183, 136, 76],
+    char: [43, 28, 16], paper: [244, 246, 241], muted: [91, 107, 96], rule: [216, 222, 214], white: [255, 255, 255], sage: [201, 218, 206]
+  };
+  const T = {
+    fr: {
+      kicker: 'DEMANDE DE DEVIS', t1: 'Votre palette,', t2: 'prête à être chiffrée.',
+      sub: 'Récapitulatif de votre demande à Valorise Maroc, fabricant de palettes bois NIMP 15 à Tanger Zone Franche.',
+      ref: 'Réf.', cap3d: 'Rendu 3D de votre configuration', capPhoto: 'Palette Valorise Maroc (photo non contractuelle)',
+      req: 'Votre demande', you: 'Vos coordonnées', next: 'La suite',
+      steps: [['Réception', 'Votre demande arrive chez notre équipe commerciale.'], ['Étude & offre', 'Nous vous envoyons une offre chiffrée adaptée à vos volumes.'], ['Production & livraison', 'Fabrication, traitement NIMP 15 et livraison par notre flotte.']],
+      p2t: 'Valorise Maroc en bref', p2s: 'Palettes bois industrielles, neuves et recyclées · Tanger Zone Franche depuis 2014',
+      facts: [['2014', 'Fondée à Tanger'], ['MA-3483', 'Producteur NIMP 15'], ['7 000 m²', 'Unité palettes'], ['7 formats', 'standards + sur mesure']],
+      intro: "Valorise Maroc fabrique des palettes bois neuves en pin rouge importé de premier choix, et reconditionne les palettes usagées de ses clients. Chaque palette est traitée thermiquement et marquée NIMP 15, puis livrée par notre propre flotte aux grandes zones industrielles du Maroc.",
+      photos: ['Notre site, Tanger Zone Franche', 'Pin rouge importé 1er choix', 'Four de traitement thermique'],
+      lines: 'Deux lignes de production',
+      lNew: ['Palettes neuves', 'Pin rouge importé de premier choix, sélectionné pour sa densité et son rapport résistance/poids.'],
+      lRec: ['Palettes recyclées', 'Collecte chez le client, tri du bois récupérable, reconditionnement et même traitement que le neuf.'],
+      heat: 'Traitement thermique NIMP 15', heatP: "56 °C à cœur pendant 30 minutes minimum. Le marquage brûlé dans le bois (IPPC · MA · 3483 · HT) garantit l'acceptation à l'import dans l'UE, aux États-Unis et dans tous les pays membres de l'IPPC.",
+      grp: 'Membre du groupe Fueltec Search', grpP: 'Groupe international à direction suisse, présent en Suisse, en Italie et au Maroc : gouvernance renforcée et continuité d\'approvisionnement.',
+      countries: 'Suisse (siège) · Italie · Maroc',
+      del: 'Livraison par notre flotte', delP: 'Tanger Free Zone · Tanger Automotive City · Kénitra Atlantic Free Zone · toutes zones du Maroc · export sur demande',
+      page: 'Page'
+    },
+    en: {
+      kicker: 'QUOTATION REQUEST', t1: 'Your pallet,', t2: 'ready to be priced.',
+      sub: 'Summary of your request to Valorise Maroc, ISPM 15 wood pallet manufacturer in Tanger Free Zone.',
+      ref: 'Ref.', cap3d: '3D render of your configuration', capPhoto: 'Valorise Maroc pallet (illustrative photo)',
+      req: 'Your request', you: 'Your details', next: 'What happens next',
+      steps: [['Received', 'Your request reaches our sales team.'], ['Study & offer', 'We send you a priced offer tailored to your volumes.'], ['Production & delivery', 'Manufacturing, ISPM 15 treatment and delivery by our fleet.']],
+      p2t: 'Valorise Maroc at a glance', p2s: 'Industrial wood pallets, new and recycled · Tanger Free Zone since 2014',
+      facts: [['2014', 'Founded in Tangier'], ['MA-3483', 'ISPM 15 producer'], ['7,000 m²', 'Pallet plant'], ['7 formats', 'standard + custom']],
+      intro: 'Valorise Maroc builds new wood pallets from first-grade imported red pine and reconditions its clients\' used pallets. Every pallet is heat-treated and ISPM 15 stamped, then delivered by our own fleet to Morocco\'s main industrial zones.',
+      photos: ['Our site, Tanger Free Zone', 'First-grade imported red pine', 'Heat treatment kiln'],
+      lines: 'Two production lines',
+      lNew: ['New pallets', 'First-grade imported red pine, chosen for its density and strength-to-weight ratio.'],
+      lRec: ['Recycled pallets', 'Collected at the client site, timber sorted, reconditioned, same treatment as new.'],
+      heat: 'ISPM 15 heat treatment', heatP: '56 °C at the core for at least 30 minutes. The mark burned into the wood (IPPC · MA · 3483 · HT) guarantees acceptance for import into the EU, the USA and every IPPC member country.',
+      grp: 'Part of Fueltec Search Group', grpP: 'An international group under Swiss management, present in Switzerland, Italy and Morocco: stronger governance and supply continuity.',
+      countries: 'Switzerland (HQ) · Italy · Morocco',
+      del: 'Delivered by our own fleet', delP: 'Tanger Free Zone · Tanger Automotive City · Kénitra Atlantic Free Zone · anywhere in Morocco · export on request',
+      page: 'Page'
+    }
+  };
+  const CONTACT = '+212 6 66 28 52 39  ·  +212 6 63 45 27 05  ·  info@valorise.ma  ·  bhar.ayman@valorise.ma';
+  const LEGAL = 'Valorise Maroc SARL · Îlot 118, Lot N°1, Tanger Zone Franche · RC 64711 · IF 15165339 · ICE 001531737000021';
+
+  /* ---------- helpers ---------- */
+  function loadImg(src) { return new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; }); }
+  async function cover(src, w, h, type) { // recadre en "cover" au ratio w:h
+    try {
+      const im = await loadImg(src), r = w / h, ir = im.naturalWidth / im.naturalHeight;
+      let sw = im.naturalWidth, sh = im.naturalHeight, sx = 0, sy = 0;
+      if (ir > r) { sw = sh * r; sx = (im.naturalWidth - sw) / 2; } else { sh = sw / r; sy = (im.naturalHeight - sh) / 2; }
+      const c = document.createElement('canvas'), px = 900; c.width = px; c.height = Math.round(px / r);
+      const g = c.getContext('2d'); g.drawImage(im, sx, sy, sw, sh, 0, 0, c.width, c.height);
+      return c.toDataURL(type || 'image/jpeg', 0.85);
+    } catch (e) { return null; }
+  }
+  async function asPng(src) {
+    try { if (src.startsWith('data:image/png')) return src; const im = await loadImg(src); const c = document.createElement('canvas'); c.width = im.naturalWidth; c.height = im.naturalHeight; c.getContext('2d').drawImage(im, 0, 0); return c.toDataURL('image/png'); } catch (e) { return null; }
+  }
+  const fill = (d, c) => d.setFillColor(c[0], c[1], c[2]);
+  const draw = (d, c) => d.setDrawColor(c[0], c[1], c[2]);
+  const ink = (d, c) => d.setTextColor(c[0], c[1], c[2]);
+  function vgrad(d, x, y, w, h, c1, c2, n) {
+    n = n || 40; const sh = h / n;
+    for (let i = 0; i < n; i++) { const k = i / (n - 1); fill(d, c1.map((v, j) => Math.round(v + (c2[j] - v) * k))); d.rect(x, y + i * sh, w, sh + 0.2, 'F'); }
+  }
+  function grain(d, x, y, w, h, color, op, seed) { // veinage du bois
+    d.saveGraphicsState(); d.setGState(new d.GState({ 'stroke-opacity': op })); draw(d, color); d.setLineWidth(0.25);
+    let s = seed || 3; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+    for (let i = 0; i < 26; i++) {
+      const y0 = y + rnd() * h, a = 0.6 + rnd() * 2.2, f = 0.02 + rnd() * 0.05, ph = rnd() * 6;
+      const pts = []; let px = x, py = y0 + Math.sin(ph) * a;
+      for (let xx = x + 4; xx <= x + w; xx += 4) { const ny = y0 + Math.sin(xx * f + ph) * a; pts.push([xx - px, ny - py]); px = xx; py = ny; }
+      d.lines(pts, x, y0 + Math.sin(ph) * a, [1, 1], 'S');
+    }
+    d.restoreGraphicsState();
+  }
+  function stamp(d, x, y, s, color) { // tampon IPPC vectoriel, s = largeur mm
+    const h = s * 0.64; draw(d, color); ink(d, color); fill(d, color);
+    d.setLineWidth(s * 0.022); d.roundedRect(x, y, s, h, 1, 1, 'S');
+    const div = x + s * 0.3; d.line(div, y, div, y + h);
+    const sx = x + s * 0.12; d.setLineWidth(s * 0.014); d.line(sx, y + h * 0.14, sx, y + h * 0.86);
+    for (let i = 0; i < 4; i++) { const yy = y + h * (0.3 + i * 0.13); d.line(sx, yy, sx - s * 0.055, yy - h * 0.08); d.line(sx, yy, sx + s * 0.055, yy - h * 0.08); }
+    d.line(sx - s * 0.05, y + h * 0.86, sx + s * 0.05, y + h * 0.86);
+    d.setFont('helvetica', 'bold'); d.setFontSize(s * 0.2);
+    ['I', 'P', 'P', 'C'].forEach((l, i) => d.text(l, x + s * 0.245, y + h * (0.24 + i * 0.21), { align: 'center' }));
+    d.setFontSize(s * 0.62); d.text('MA-', div + s * 0.05, y + h * 0.33); d.text('3483', div + s * 0.05, y + h * 0.63); d.text('HT', div + s * 0.05, y + h * 0.93);
+  }
+  function footer(d, t, n, total) {
+    fill(d, C.forest); d.rect(0, 283, 210, 14, 'F');
+    ink(d, C.sage); d.setFont('helvetica', 'normal'); d.setFontSize(7.2);
+    d.text(CONTACT, 14, 289); d.text(LEGAL, 14, 293.2);
+    ink(d, C.pine); d.setFont('helvetica', 'bold'); d.text(`${t.page} ${n}/${total}`, 196, 291, { align: 'right' });
+  }
+  function rows(d, list, x, y, w, opt) {
+    const lh = opt.lh || 6.4;
+    list.forEach(([k, v], i) => {
+      const yy = y + i * lh;
+      d.setFont('helvetica', 'normal'); d.setFontSize(8.3); ink(d, opt.kc); d.text(k, x, yy);
+      d.setFont('helvetica', 'bold'); d.setFontSize(8.6); ink(d, opt.vc);
+      const val = d.splitTextToSize(String(v || '—'), w * 0.7)[0];
+      d.text(val, x + w, yy, { align: 'right' });
+      if (opt.rule && i < list.length - 1) { draw(d, opt.rule); d.setLineWidth(0.15); d.line(x, yy + lh * 0.42, x + w, yy + lh * 0.42); }
+    });
+    return y + list.length * lh;
+  }
+
+  /* ---------- construction ---------- */
+  async function buildQuotePDF(data) {
+    const { jsPDF } = window.jspdf;
+    const t = T[data.lang] || T.fr;
+    const d = new jsPDF({ unit: 'mm', format: 'a4', compress: true });
+    d.setProperties({ title: `${t.kicker} ${data.ref} — Valorise Maroc`, author: 'Valorise Maroc', subject: t.kicker });
+
+    const logoLight = data.logoLight && await asPng(data.logoLight);
+    const logoFueltec = data.logoFueltec && await asPng(data.logoFueltec);
+
+    /* ===== PAGE 1 ===== */
+    fill(d, C.paper); d.rect(0, 0, 210, 297, 'F');
+    vgrad(d, 0, 0, 210, 118, C.forest, C.forest3, 30);
+    grain(d, 0, 0, 210, 118, C.pine, 0.07, 11);
+    // tampon en filigrane
+    d.saveGraphicsState(); d.setGState(new d.GState({ opacity: 0.08, 'stroke-opacity': 0.08 })); stamp(d, 146, 26, 58, C.pine); d.restoreGraphicsState();
+    if (logoLight) d.addImage(logoLight, 'PNG', 14, 11, 33, 11.7);
+    ink(d, C.pine); d.setFont('helvetica', 'bold'); d.setFontSize(8); d.text(t.kicker, 196, 15.5, { align: 'right' });
+    ink(d, C.sage); d.setFont('helvetica', 'normal'); d.setFontSize(8); d.text(`${t.ref} ${data.ref}  ·  ${data.date}`, 196, 20.5, { align: 'right' });
+    d.setFont('helvetica', 'bold'); d.setFontSize(27); ink(d, C.white); d.text(t.t1, 14, 42);
+    ink(d, C.pine); d.text(t.t2, 14, 53);
+    d.setFont('helvetica', 'normal'); d.setFontSize(9.5); ink(d, C.sage); d.text(d.splitTextToSize(t.sub, 120), 14, 61);
+
+    // carte image
+    const cx = 14, cy = 72, cw = 182, ch = 104;
+    d.saveGraphicsState(); d.setGState(new d.GState({ opacity: 0.35 })); fill(d, [5, 20, 12]); d.roundedRect(cx + 1.2, cy + 2.2, cw, ch, 4, 4, 'F'); d.restoreGraphicsState();
+    fill(d, C.forest2); d.roundedRect(cx, cy, cw, ch, 4, 4, 'F');
+    vgrad(d, cx + 3, cy + 3, cw - 6, ch - 6, [28, 74, 51], [21, 59, 40], 30);
+    if (data.image) {
+      if (data.imageIsPhoto) { d.addImage(data.image, 'JPEG', cx + 3, cy + 3, cw - 6, ch - 6); }
+      else d.addImage(data.image, 'JPEG', cx + 3, cy + 3, cw - 6, ch - 6);
+    }
+    // étiquette format
+    if (data.formatTag) {
+      fill(d, C.pine); d.roundedRect(cx + cw - 58, cy + 8, 50, 21, 1.5, 1.5, 'F');
+      ink(d, C.char); d.setFont('helvetica', 'bold'); d.setFontSize(16); d.text(data.formatTag, cx + cw - 54, cy + 18.5);
+      d.setFontSize(6.8); d.setFont('helvetica', 'normal'); d.text(data.formatSub || 'NIMP 15 · MA-3483 HT', cx + cw - 54, cy + 25);
+    }
+    d.setFont('helvetica', 'normal'); d.setFontSize(7.3);
+    const cap = data.imageIsPhoto ? t.capPhoto : t.cap3d, capW = d.getTextWidth(cap) + 6;
+    d.saveGraphicsState(); d.setGState(new d.GState({ opacity: 0.75 })); fill(d, C.forest); d.roundedRect(cx + 6, cy + ch - 11, capW, 7, 1.5, 1.5, 'F'); d.restoreGraphicsState();
+    ink(d, C.sage); d.text(cap, cx + 9, cy + ch - 6.3);
+
+    // Votre demande — ticket
+    let y = 190;
+    ink(d, C.forest); d.setFont('helvetica', 'bold'); d.setFontSize(12.5); d.text(t.req, 14, y);
+    const tx = 14, ty = y + 4, tw = 104, th = 12 + data.request.length * 6.4 + 12;
+    fill(d, C.pine); d.roundedRect(tx, ty, tw, th, 2, 2, 'F');
+    fill(d, C.paper); d.circle(tx, ty + th - 11, 2.6, 'F'); d.circle(tx + tw, ty + th - 11, 2.6, 'F');
+    rows(d, data.request, tx + 6, ty + 9, tw - 12, { kc: [110, 84, 52], vc: C.char, lh: 6.4 });
+    d.setLineDashPattern([1.2, 1], 0); draw(d, [150, 120, 80]); d.setLineWidth(0.3); d.line(tx + 5, ty + th - 11, tx + tw - 5, ty + th - 11); d.setLineDashPattern([], 0);
+    ink(d, C.char); d.setFont('helvetica', 'bold'); d.setFontSize(7.2); d.text('NIMP 15 · ISPM 15 · MA-3483 HT', tx + 6, ty + th - 4.5, { charSpace: 0.3 });
+
+    // Vos coordonnées
+    const rx = 128, rw = 68;
+    ink(d, C.forest); d.setFont('helvetica', 'bold'); d.setFontSize(12.5); d.text(t.you, rx, y);
+    let ry = rows(d, data.contact, rx, y + 10, rw, { kc: C.muted, vc: C.forest, lh: 6.2, rule: C.rule });
+    if (data.message) {
+      d.setFont('helvetica', 'italic'); d.setFontSize(8); ink(d, C.muted);
+      const lines = d.splitTextToSize('« ' + data.message + ' »', rw).slice(0, 3);
+      d.text(lines, rx, ry + 1); ry += lines.length * 3.6 + 2;
+    }
+    // La suite
+    ry = Math.max(ry + 4, 236);
+    ink(d, C.forest); d.setFont('helvetica', 'bold'); d.setFontSize(10); d.text(t.next, rx, ry);
+    t.steps.forEach(([a, b], i) => {
+      const sy = ry + 6 + i * 11.5;
+      fill(d, i === 0 ? C.leaf : C.forest); d.circle(rx + 3, sy + 0.2, 3, 'F');
+      ink(d, C.white); d.setFontSize(7.5); d.setFont('helvetica', 'bold'); d.text(String(i + 1), rx + 3, sy + 1.3, { align: 'center' });
+      ink(d, C.forest); d.setFontSize(8.3); d.text(a, rx + 8, sy + 0.4);
+      ink(d, C.muted); d.setFont('helvetica', 'normal'); d.setFontSize(7.4); d.text(d.splitTextToSize(b, rw - 8), rx + 8, sy + 4);
+    });
+    footer(d, t, 1, 2);
+
+    /* ===== PAGE 2 ===== */
+    d.addPage();
+    fill(d, C.paper); d.rect(0, 0, 210, 297, 'F');
+    vgrad(d, 0, 0, 210, 56, C.forest, C.forest3, 20); grain(d, 0, 0, 210, 56, C.pine, 0.07, 29);
+    if (logoLight) d.addImage(logoLight, 'PNG', 14, 11, 33, 11.7);
+    ink(d, C.white); d.setFont('helvetica', 'bold'); d.setFontSize(22); d.text(t.p2t, 14, 38);
+    ink(d, C.pine); d.setFont('helvetica', 'normal'); d.setFontSize(9); d.text(t.p2s, 14, 46);
+    ink(d, C.pine); d.setFont('helvetica', 'bold'); d.setFontSize(8); d.text('NIMP 15 · MA-3483', 196, 15.5, { align: 'right' });
+
+    // chiffres clés
+    t.facts.forEach(([v, l], i) => {
+      const fx = 14 + i * 46;
+      fill(d, C.white); draw(d, C.rule); d.setLineWidth(0.25); d.roundedRect(fx, 63, 43, 22, 2, 2, 'FD');
+      fill(d, C.pine); d.rect(fx, 63, 2, 22, 'F');
+      ink(d, C.forest); d.setFont('helvetica', 'bold'); d.setFontSize(15); d.text(v, fx + 6, 73.5);
+      ink(d, C.muted); d.setFont('helvetica', 'normal'); d.setFontSize(7.8); d.text(l, fx + 6, 80);
+    });
+    ink(d, [40, 52, 44]); d.setFont('helvetica', 'normal'); d.setFontSize(9.6);
+    d.text(d.splitTextToSize(t.intro, 182), 14, 96, { lineHeightFactor: 1.45 });
+
+    // photos
+    const ph = data.photos || [];
+    for (let i = 0; i < 3; i++) {
+      const px = 14 + i * 61.5, py = 118, pw = 57.5, phh = 42;
+      if (ph[i]) {
+        const img = await cover(ph[i], pw, phh);
+        if (img) d.addImage(img, 'JPEG', px, py, pw, phh);
+      } else { fill(d, C.rule); d.rect(px, py, pw, phh, 'F'); }
+      fill(d, C.pine); d.rect(px, py + phh, pw, 1.2, 'F');
+      ink(d, C.muted); d.setFontSize(7.4); d.setFont('helvetica', 'normal'); d.text(t.photos[i], px, py + phh + 5.5);
+    }
+
+    // deux lignes
+    y = 178;
+    ink(d, C.forest); d.setFont('helvetica', 'bold'); d.setFontSize(12); d.text(t.lines, 14, y);
+    [[t.lNew, C.leaf], [t.lRec, C.pineDeep]].forEach(([l, col], i) => {
+      const ly = y + 7 + i * 22;
+      fill(d, col); d.roundedRect(14, ly, 2.2, 17, 1, 1, 'F');
+      ink(d, C.forest); d.setFont('helvetica', 'bold'); d.setFontSize(9.5); d.text(l[0], 20, ly + 4.5);
+      ink(d, C.muted); d.setFont('helvetica', 'normal'); d.setFontSize(8.3); d.text(d.splitTextToSize(l[1], 80), 20, ly + 9.5);
+    });
+    // traitement + tampon
+    fill(d, C.pine); d.roundedRect(110, y - 5, 86, 50, 3, 3, 'F');
+    grain(d, 110, y - 5, 86, 50, C.pineDeep, 0.35, 5);
+    stamp(d, 116, y + 1, 30, C.char);
+    ink(d, C.char); d.setFont('helvetica', 'bold'); d.setFontSize(9.5); d.text(d.splitTextToSize(t.heat, 40), 151, y + 4);
+    d.setFont('helvetica', 'normal'); d.setFontSize(7.4); d.text(d.splitTextToSize(t.heatP, 78), 116, y + 27);
+
+    // groupe
+    y = 232;
+    fill(d, C.white); draw(d, C.rule); d.setLineWidth(0.25); d.roundedRect(14, y, 182, 30, 3, 3, 'FD');
+    fill(d, C.forest); d.roundedRect(19, y + 5, 20, 20, 2, 2, 'F');
+    if (logoFueltec) d.addImage(logoFueltec, 'PNG', 21.5, y + 6.8, 15, 16.4);
+    ink(d, C.forest); d.setFont('helvetica', 'bold'); d.setFontSize(10.5); d.text(t.grp, 45, y + 8);
+    ink(d, C.muted); d.setFont('helvetica', 'normal'); d.setFontSize(8); d.text(d.splitTextToSize(t.grpP, 145), 45, y + 13);
+    ink(d, C.forest); d.setFont('helvetica', 'bold'); d.setFontSize(8); d.text(t.countries, 45, y + 25);
+    ink(d, C.leaf); const lk = 'www.fueltecsearch.com'; d.textWithLink(lk, 191 - d.getTextWidth(lk), y + 25, { url: 'https://www.fueltecsearch.com' });
+    // livraison
+    ink(d, C.forest); d.setFont('helvetica', 'bold'); d.setFontSize(9); d.text(t.del, 14, 270);
+    ink(d, C.muted); d.setFont('helvetica', 'normal'); d.setFontSize(8); d.text(d.splitTextToSize(t.delP, 182), 14, 275);
+    footer(d, t, 2, 2);
+    return d;
+  }
+  window.buildQuotePDF = buildQuotePDF;
+})();
+
+</script>
+<script>
 /* Valorise Maroc — logique du site */
 /* ===== CONFIG — modifiable =====
    Adresses qui reçoivent les demandes de devis (séparées par des virgules dans le mail) */
 const VM_CONFIG = {
-  quoteEmails: ['bhar.ayman@valorise.ma', 'info@valorise.ma'],
-  whatsapp: '212666285239'
+  quoteEmails: ['bhar.ayman@valorise.ma', 'info@valorise.ma'], // secours (mailto) — l'envoi direct utilise QUOTE_TO dans Vercel
+  whatsapp: '212666285239',
+  quoteApi: '/api/quote' // fonction Vercel qui envoie l'e-mail avec le PDF
 };
 
 (function () {
@@ -1199,7 +1476,7 @@ const VM_CONFIG = {
     'dir.h': 'Prefer to talk to someone?', 'dir.call': 'Call', 'fab': 'Quote',
     'q.company': 'Company *', 'q.name': 'Name and role', 'q.phone': 'Phone', 'q.email': 'Email', 'q.pallet': 'Pallet required',
     'q.qty': 'Quantity per month', 'q.zone': 'Delivery zone', 'q.other': 'Other zone', 'q.export': 'Export', 'q.msg': 'Details (load, use, export…)',
-    'q.wa': 'Send on WhatsApp', 'q.mail': 'Send by email',
+    'q.wa': 'Send on WhatsApp', 'q.mail': 'Send by email', 'q.send': 'Send my request', 'qd.pdf': 'Download the PDF summary', 'q3.pdf': 'When you send, you receive a PDF summary of your request with a 3D render of your pallet.',
     'k.phone': 'Phone', 'k.mail': 'Email', 'k.addr': 'Address',
     'ft.grp': 'A Fueltec Search Group company'
   };
@@ -1251,7 +1528,7 @@ const VM_CONFIG = {
   const adv = { L: 1300, W: 1100, runners: 3, blockCols: 3, topN: 0, topW: 100 };
   let model = null;
   const stage = $('#stage');
-  const p3d = window.THREE ? new window.Pallet3D(stage) : null;
+  const p3d = window.THREE ? new window.Pallet3D(stage, { preserve: true }) : null;
   if (!window.THREE) stage.classList.add('no-gl');
   const fmtNum = (v, d) => lang === 'fr' ? v.toFixed(d).replace('.', ',') : v.toFixed(d);
 
@@ -1452,24 +1729,89 @@ const VM_CONFIG = {
     Object.entries(rows).forEach(([k, val]) => { if (val) out.push(`${t.L[k]} : ${val}`); });
     return out.join('\n');
   }
-  function finish() {
+  /* --- Récapitulatif PDF + envoi direct --- */
+  const QS = {
+    fr: { okT: 'Demande envoyée.', okP: 'Notre équipe a bien reçu votre demande et reviendra vers vous avec une offre. Votre récapitulatif PDF vient d\'être téléchargé.',
+      koT: 'Votre récapitulatif est prêt.', koP: 'L\'envoi automatique n\'a pas abouti. Votre PDF a été téléchargé : envoyez-nous la demande par WhatsApp ou par e-mail en un clic.',
+      sending: 'Envoi en cours…', struct: 'Structure', vol: 'Volume bois', semelles: 'semelles', planches: 'planches', file: 'Valorise-Maroc_Demande-devis' },
+    en: { okT: 'Request sent.', okP: 'Our team has received your request and will come back to you with an offer. Your PDF summary has just been downloaded.',
+      koT: 'Your summary is ready.', koP: 'Automatic sending did not go through. Your PDF has been downloaded: send us the request by WhatsApp or email in one click.',
+      sending: 'Sending…', struct: 'Structure', vol: 'Timber volume', semelles: 'bottom boards', planches: 'top boards', file: 'Valorise-Maroc_Quote-request' }
+  };
+  let lastPdf = null;
+  const newRef = () => { const dt = new Date(); return 'DDV-' + dt.toISOString().slice(0, 10).replace(/-/g, '') + '-' + String(Math.floor(1000 + Math.random() * 9000)); };
+  const BG = ['#1C4A33', '#153B28'];
+  function palletImage() {
+    if (!p3d || !p3d.ok) return null;
+    let m = null;
+    if (q.type === 'config') m = model;
+    else if (q.type === 'std' && q.fmt) { const [l, w] = q.fmt.split('×').map(Number); m = window.PalletModel.compute(Object.assign({}, STD, { L: l * 10, W: w * 10, deck: 'closed', kind: q.kind === 'recycled' ? 'recycled' : 'new' })); }
+    if (!m) return null;
+    const rot = p3d.rotY, auto = p3d.autoRotate;
+    p3d.autoRotate = false; p3d.rotY = -0.62; p3d.group.rotation.y = -0.62;
+    if (m !== model) p3d.build(m, { quick: true });
+    const img = p3d.snapshot(1400, BG, 176 / 98);
+    if (m !== model) p3d.build(model, { quick: true });
+    p3d.rotY = rot; p3d.autoRotate = auto;
+    return { img, m };
+  }
+  async function makePdf(ref) {
+    const t = QT[lang], s = QS[lang], v = ticketValues();
+    const shot = palletImage();
+    const request = [[t.L.pallet, v.pallet], [t.L.kind, v.kind], [t.L.qty, v.qty], [t.L.zone, v.zone], [t.L.when, v.when || '—']];
+    if (shot) {
+      request.push([s.struct, `${shot.m.runners} ${s.semelles} · ${shot.m.blocks} ${UI[lang].blocks} · ${shot.m.topN} ${s.planches} ${shot.m.cfg.topW} mm`]);
+      request.push([s.vol, `≈ ${shot.m.volume.toFixed(3)} m³ / pal.`.replace('≈ ', '~ ').replace('.', lang === 'fr' ? ',' : '.')]);
+    }
+    const contact = [[t.L.company, $('#f-company').value.trim()], [t.L.name, $('#f-name').value.trim()], [t.L.phone, $('#f-phone').value.trim()], [t.L.email, $('#f-email').value.trim()]].filter(r => r[1]);
+    let image = shot && shot.img, imageIsPhoto = false;
+    if (!image) { image = await (async () => { try { const im = $('.g1 img'); const i = new Image(); i.src = im.currentSrc || im.src; await i.decode(); const c = document.createElement('canvas'); const r = 176 / 98; c.width = 1100; c.height = Math.round(1100 / r); const sr = i.naturalWidth / i.naturalHeight; let sw = i.naturalWidth, sh = i.naturalHeight, sx = 0, sy = 0; if (sr > r) { sw = sh * r; sx = (i.naturalWidth - sw) / 2; } else { sh = sw / r; sy = (i.naturalHeight - sh) / 2; } c.getContext('2d').drawImage(i, sx, sy, sw, sh, 0, 0, c.width, c.height); return c.toDataURL('image/jpeg', .85); } catch (e) { return null; } })(); imageIsPhoto = true; }
+    const fmtTag = shot ? `${shot.m.L / 10} × ${shot.m.W / 10}` : (lang === 'fr' ? 'Sur mesure' : 'Custom');
+    const doc = await window.buildQuotePDF({
+      lang, ref, date: new Date().toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-GB'),
+      image, imageIsPhoto, imageRatio: 4 / 3, formatTag: fmtTag,
+      formatSub: shot ? `${UI[lang][shot.m.deck]} · ${UI[lang][shot.m.kind]} · NIMP 15` : 'NIMP 15 · MA-3483 HT',
+      request, contact, message: $('#f-msg').value.trim(),
+      logoLight: $('.brand img').currentSrc || $('.brand img').src,
+      logoFueltec: $('.group img').currentSrc || $('.group img').src,
+      photos: [$('.unit-photo img'), $('.line img'), $('.oven img')].map(i => i && (i.currentSrc || i.src))
+    });
+    return { doc, request, contact, filename: `${s.file}_${ref}.pdf` };
+  }
+  function showDone(ok) {
+    const s = QS[lang];
     $$('.q-step').forEach(f => f.classList.remove('on')); $('#q-nav').hidden = true; $('#q-done').hidden = false;
     $$('#q-steps li').forEach(li => { li.classList.remove('on'); li.classList.add('done'); }); $('#q-bar').style.width = '100%';
+    $('#qd-icon').textContent = ok ? '✓' : '!'; $('#qd-icon').classList.toggle('warn', !ok);
+    $('#qd-title').textContent = ok ? s.okT : s.koT; $('#qd-text').textContent = ok ? s.okP : s.koP;
+    $('#qd-wa').hidden = ok; $('#qd-mail').hidden = ok;
     $('#q-done').focus();
   }
-  function send(kind) {
+  async function sendNow() {
     const err = validate(3); if (err) { $('#form-msg').textContent = err; return; }
-    const txt = composeMessage();
-    if (kind === 'wa') window.open(`https://wa.me/${WA}?text=${encodeURIComponent(txt)}`, '_blank', 'noopener');
-    else location.href = `mailto:${MAIL}?subject=${encodeURIComponent(QT[lang].subject)}&body=${encodeURIComponent(txt)}`;
-    finish();
+    const btn = $('#send-now'); btn.classList.add('loading'); btn.disabled = true;
+    const label = btn.querySelector('span'), old = label.textContent; label.textContent = QS[lang].sending;
+    const ref = newRef(); let ok = false;
+    try {
+      const r = await makePdf(ref); lastPdf = r;
+      r.doc.save(r.filename);
+      const pdf = r.doc.output('datauristring').split(',')[1];
+      const res = await fetch(VM_CONFIG.quoteApi, { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ref, lang, website: $('#f-website').value, company: $('#f-company').value.trim(), name: $('#f-name').value.trim(), phone: $('#f-phone').value.trim(), email: $('#f-email').value.trim(), msg: $('#f-msg').value.trim(), rows: r.request.concat(r.contact), text: composeMessage(), filename: r.filename, pdf }) });
+      ok = res.ok && (await res.json().catch(() => ({}))).ok === true;
+    } catch (e) { console.warn('Envoi devis :', e); ok = false; }
+    label.textContent = old; btn.classList.remove('loading'); btn.disabled = false;
+    showDone(ok);
   }
-  $('#send-wa').addEventListener('click', () => send('wa'));
-  $('#send-mail').addEventListener('click', () => send('mail'));
+  $('#send-now').addEventListener('click', sendNow);
+  $('#send-wa').addEventListener('click', () => { const err = validate(3); if (err) { $('#form-msg').textContent = err; return; } window.open(`https://wa.me/${WA}?text=${encodeURIComponent(composeMessage())}`, '_blank', 'noopener'); });
+  $('#qd-pdf').addEventListener('click', async () => { if (!lastPdf) lastPdf = await makePdf(newRef()); lastPdf.doc.save(lastPdf.filename); });
+  $('#qd-wa').addEventListener('click', () => window.open(`https://wa.me/${WA}?text=${encodeURIComponent(composeMessage())}`, '_blank', 'noopener'));
+  $('#qd-mail').addEventListener('click', () => { location.href = `mailto:${MAIL}?subject=${encodeURIComponent(QT[lang].subject)}&body=${encodeURIComponent(composeMessage() + '\n\n(PDF joint)')}`; });
   $('#q-restart').addEventListener('click', () => {
     $('#quote-form').reset(); Object.assign(q, { type: null, fmt: null, kind: 'new', qty: null, freq: 'once', zone: null, when: null });
     ['fmt', 'qty', 'zone', 'when'].forEach(g => pressIn(g, null)); pressIn('kind', 'new'); pressIn('freq', 'once'); setType(null);
-    $('#q-done').hidden = true; $('#q-nav').hidden = false; goStep(1); renderTicket();
+    $('#q-done').hidden = true; $('#q-nav').hidden = false; lastPdf = null; goStep(1); renderTicket();
   });
   // depuis le configurateur 3D
   $('#quote-this').addEventListener('click', () => { setType('config'); pressIn('kind', cfg.kind); q.kind = cfg.kind; goStep(1); renderTicket(); });
